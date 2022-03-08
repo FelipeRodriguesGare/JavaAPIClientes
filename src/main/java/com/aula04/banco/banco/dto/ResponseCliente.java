@@ -18,11 +18,13 @@ public class ResponseCliente {
     private String nome;
     private String email;
     private List<Conta> conta;
+    private String cpf;
 
     public ResponseCliente(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
+        this.cpf = cliente.getCpf();
         this.conta = cliente.getContas();
     }
 
