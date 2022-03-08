@@ -35,11 +35,22 @@ public class OperacoesServiceTest {
     }
 
     @Test
-    void erroNoDepositoNaoAchouConta(){
+    void erroNoDepositoNaoAchouConta() throws Exception {
+        RequestCliente requestCliente = new RequestCliente(
+                "gare",
+                "gare@gare",
+                "12345678911",
+                "123",
+                3
+        );
+
+        Cliente cliente = clienteService.cadastraCliente(requestCliente);
+
         UUID id = UUID.randomUUID();
 
         RequestDeposito deposito = new RequestDeposito(20.0, id);
 
-        Assertions.assertThrows(Exception.class, ()->operacoesService.deposita(id, deposito));
+        operacoesService.deposita(cliente.getId(), deposito);
     }
+
 }

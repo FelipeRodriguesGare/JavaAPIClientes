@@ -53,7 +53,7 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<UUID> deleteCliente(@PathVariable UUID id) throws Exception {
-        BancoAula04Application.bancoCliente.deletCliente(id);
+        BancoAula04Application.bancoCliente.deleteCliente(id);
         return ResponseEntity.ok().body(id);
     }
 

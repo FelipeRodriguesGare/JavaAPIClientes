@@ -37,26 +37,26 @@ public class BancoCliente {
         return searchCliente(id);
     }
 
-    public Boolean deletCliente(UUID id) throws Exception{
+    public Boolean deleteCliente(UUID id) throws Exception{
         Cliente cliente = searchCliente(id);
         BancoCliente.clientes.remove(cliente);
         return true;
     }
 
     public void deposita(UUID id, RequestDeposito requestDeposito) throws Exception{
-        BancoCliente.clientes.stream().filter(cliente -> Objects.equals(cliente.getId(),id))
-                .forEach(cliente -> {
-                    Optional<Conta> resultConta = cliente.getContas().stream().filter(conta -> Objects.equals(conta.getId(),requestDeposito.getIdConta())).findAny();
-                    if(resultConta.isPresent()) {
-                        resultConta.get().setSaldo(resultConta.get().getSaldo() + requestDeposito.getValor());
-                    } else {
-                        try {
-                            throw new Exception("Conta não encontrada!");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        Cliente cliente = searchCliente(id);
+
+        Optional<Conta> resultConta = cliente.getContas().stream()
+                .filter(conta -> Objects.equals(conta.getId(),requestDeposito.getIdConta())).findAny();
+        if(resultConta.isPresent()) {
+            resultConta.get().setSaldo(resultConta.get().getSaldo() + requestDeposito.getValor());
+        } else {
+            try {
+                throw new Exception("Conta não encontrada!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
